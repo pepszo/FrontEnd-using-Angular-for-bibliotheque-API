@@ -25,7 +25,7 @@ export class AuthService {
     }, httpOptions);
   }
 
-  getRoleFromToken(): Observable<any> {
+  getRoleFromServer(): Observable<any> {
     return this.http.get <any>(API_URL + 'ur');
   }
 }

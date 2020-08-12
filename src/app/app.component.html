@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-  <a class="navbar-brand" href="#">Home</a>
+  <a class="navbar-brand" href="bibliotheques">Home</a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -8,7 +8,47 @@
 
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="nav navbar-nav  ">
-      <li class="nav-item active" routerLinkActive="active"><a class="nav-link" routerLink="users">Bibliothèques</a></li>
+      <li class="nav-item active" routerLinkActive="active"><a class="nav-link" routerLink="bibliotheques">Bibliothèques</a></li>
+      <div *ngIf="this.showManagerGeneralBoard">
+        <li class="nav-item dropdown" >
+          <a class="nav-link dropdown-toggle" href="#" id="ManagerGeneralBoard" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Espace MG
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+      </div>
+      <div *ngIf="this.showManagerBoard">
+        <li class="nav-item dropdown" >
+          <a class="nav-link dropdown-toggle" href="#" id="ManagerBoard" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Espace Manager
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+      </div>
+
+      <div *ngIf="this.showBibliothecaireBoard">
+        <li class="nav-item dropdown" >
+          <a class="nav-link dropdown-toggle" href="#" id="BibliothecaireBoard" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Espace Bibliothecaire
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+      </div>
     </ul>
   </div>
 

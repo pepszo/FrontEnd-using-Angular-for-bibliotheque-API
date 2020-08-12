@@ -1,4 +1,6 @@
 import {Cotisation} from './Cotisation';
+import {Role} from './Role';
+import {BookLocation} from './BookLocation';
 
 export class Lecteur {
 
@@ -12,6 +14,7 @@ export class Lecteur {
   mdp: string;
   cotisations: Cotisation[];
   locations: BookLocation[];
+  role: Role;
 
   constructor( ) {
   }

@@ -1,5 +1,6 @@
 import {Bibliothecaire} from './Bibliothecaire';
 import {Cotisation} from './Cotisation';
+import {Exemplaire} from './Exemplaire';
 
 export class Bibliotheque {
 

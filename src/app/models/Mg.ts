@@ -1,8 +1,8 @@
 import {Role} from './Role';
 
-export class Bibliothecaire {
+export class Mg {
 
-  idBibliothecaire: number;
+  idMg: number;
   nom: string;
   prenom: string;
   adresse: string;

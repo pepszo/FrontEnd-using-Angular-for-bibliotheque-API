@@ -9,10 +9,11 @@ import {TokenStorageService} from './services/token-storage.service';
 export class AppComponent implements OnInit {
 
   title = 'bibliotheque_frontend';
-  private role: string;
+  role: string;
   isLoggedIn = false;
-  showAdminBoard = false;
-  showModeratorBoard = false;
+  showBibliothecaireBoard = false;
+  showManagerBoard = false;
+  showManagerGeneralBoard = false;
   username: string;
 
   constructor(private tokenStorageService: TokenStorageService) { }
@@ -23,10 +24,22 @@ export class AppComponent implements OnInit {
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.role = this.tokenStorageService.getRole();
+      this.showBibliothecaireBoard = this.role.includes('ROLE_BIBLIOTHECAIRE');
 
-      // this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      // this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+      if (this.role === 'ROLE_MANAGER') {
+        this.showManagerBoard = true;
+        this.showBibliothecaireBoard = true;
+      }
 
+      if (this.role === 'ROLE_MANAGER GENERAL') {
+        this.showManagerBoard = true;
+        this.showBibliothecaireBoard = true;
+        this.showManagerGeneralBoard = true;
+      }
+
+      if (this.role === 'ROLE_BIBLIOTHECAIRE') {
+        this.showBibliothecaireBoard = true;
+      }
       this.username = user;
     }
   }

@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       data => {
         this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUser(this.form.username);
-        this.authService.getRoleFromToken().subscribe(
+        this.authService.getRoleFromServer().subscribe(
           data2 => {
             this.sliced = JSON.stringify(data2).slice(15);
             this.sliced = this.sliced.slice(0, -3);
