@@ -1,0 +1,84 @@
+<div class="jumbotron-fluid d-flex align-items-center vh-100">
+  <div class="container text-center">
+    <div class="row justify-content-center">
+      <div class="col-sm-3">
+        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+
+        <form class="form-signin"
+              *ngIf="!isLoggedIn"
+              name="form"
+              (ngSubmit)="f.form.valid && onSubmit()"
+              #f="ngForm"
+              novalidate
+        >
+
+          <div class="form-group">
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Username"
+              autofocus=""
+              name="username"
+              [(ngModel)]="form.username"
+              required
+              #username="ngModel"
+            />
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && username.invalid"
+            >
+              Username is required!
+            </div>
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              placeholder="Password"
+              [(ngModel)]="form.password"
+              required
+              #password="ngModel"
+            />
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && password.invalid"
+            >
+              <div *ngIf="password.errors.required">Password is required</div>
+              <div *ngIf="password.errors.minlength">
+              </div>
+            </div>
+          </div>
+          <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary btn-block">
+              Login
+            </button>
+            <p class="mt-5 mb-3 text-muted">© 2019-2020</p>
+          </div>
+          <div class="form-group">
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="f.submitted && isLoginFailed"
+            >
+              Login failed: {{ errorMessage }}
+            </div>
+          </div>
+        </form>
+
+        <div class="alert alert-success" *ngIf="isLoggedIn">
+          Logged in as {{ role }}.
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
