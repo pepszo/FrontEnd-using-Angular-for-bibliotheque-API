@@ -6,7 +6,7 @@
       <th scope="col">#</th>
       <th scope="col">Adresse</th>
       <th scope="col">Tel</th>
-      <th scope="col">Catalogue</th>
+      <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -14,9 +14,12 @@
       <td>{{ bibliotheque.idBibliotheque }}</td>
       <td>{{ bibliotheque.adresse }}</td>
       <td>{{ bibliotheque.tel }}</td>
-      <td><a [routerLink]="bibliotheque.idBibliotheque">Catalogue</a></td>
+      <td><a [routerLink]="bibliotheque.idBibliotheque"><button class="btn btn-primary" type="submit">Catalogue</button></a></td>
     </tr>
     </tbody>
   </table>
+<ng-container *ngIf="this.showManagerGeneralBoard">
   <a routerLink="/new-user">Ajouter une bibliotheque</a>
+</ng-container>
+
 

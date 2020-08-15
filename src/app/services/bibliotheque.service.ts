@@ -14,4 +14,8 @@ export class BibliothequeService {
   getAllBibliotheque(): Observable<Bibliotheque[]> {
     return this.httpClient.get <Bibliotheque[]>(API_URL + 'bibliotheque/all');
   }
+
+  getBibliothequeById(id): Observable<Bibliotheque> {
+    return this.httpClient.get <Bibliotheque> (API_URL + 'bibliotheque/' + id);
+  }
 }

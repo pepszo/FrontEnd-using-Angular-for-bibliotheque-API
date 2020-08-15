@@ -13,9 +13,14 @@ import {authInterceptorProviders} from './services/http-interceptor-auth.service
 import { LoginComponent } from './component/login/login.component';
 import { BibliothequeListComponent } from './component/bibliotheque/bibliotheque-list/bibliotheque-list.component';
 import {BibliothequeService} from './services/bibliotheque.service';
+import { BibliothequeCatalogueComponent } from './component/bibliotheque/bibliotheque-catalogue/bibliotheque-catalogue.component';
+import { CartComponent } from './component/cart/cart.component';
+import {Cart} from './models/Cart';
+import {CartService} from './services/cart.service';
 
 const appRoutes: Routes = [
   { path: 'bibliotheques', component: BibliothequeListComponent},
+  { path: 'bibliotheques/:id', component: BibliothequeCatalogueComponent},
   { path: 'login', component: LoginComponent },
   { path: '', canActivate: [AuthGuardService], component: LoginComponent },
   { path: 'not-found', component: FourOhFourComponent },
@@ -28,6 +33,8 @@ const appRoutes: Routes = [
     FourOhFourComponent,
     LoginComponent,
     BibliothequeListComponent,
+    BibliothequeCatalogueComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +44,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
+    CartService,
     BibliothequeService,
     AuthService,
     AuthGuardService,

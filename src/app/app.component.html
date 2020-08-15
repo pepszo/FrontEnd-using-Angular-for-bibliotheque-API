@@ -59,15 +59,43 @@
     <li class="nav-item ">
       <a href class="nav-link flex-row-reverse" (click)="logout()">LogOut</a>
     </li>
+    <li class="nav-item " *ngIf="showLecteurBoard" >
+       <img src="/assets/img/cart-icon.png" alt="image" data-toggle="modal" data-target="#exampleModalLong" style="width: 40px ;cursor: pointer">
+    </li>
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Panier</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table>
+            <tr  *ngFor="let exemplaire of cartService.getCart() ">
+              <td>{{ exemplaire.titre }} <img src="assets/img/remove_from_cart.png" style="width: 28px; margin-left: 320px; cursor: pointer;" (click)="onClick(exemplaire.idExemplaire)"></td>
+            </tr>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <img src="/assets/img/add-to-cart-icon.jpg" alt="image"  style="width: 30px">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </ul>
 
   <ul class="nav navbar-nav ml-auto " *ngIf="!isLoggedIn">
-    <li class="nav-item active" routerLinkActive="active"><a class="nav-link" routerLink="login">Login</a></li>
+    <li class="nav-item active" routerLinkActive="active"><a class="nav-link" routerLink="login">LogIn</a></li>
   </ul>
+
+
+
 
 </nav>
 
 <router-outlet></router-outlet>
-
 
 

@@ -6,7 +6,7 @@ export class Oeuvre {
   isbn: string;
   titre: string;
   descri: string;
-  editions: Edition[];
+  edition: Edition[];
 
   constructor( ) {
   }

@@ -1,0 +1,48 @@
+<ng-container *ngIf="bibliotheque">
+<h2>Catalogue de la bibliotheque de {{bibliotheque.adresse}}</h2>
+<table class="table table-striped cel">
+  <thead>
+  <tr >
+    <th scope="col">#</th>
+    <th scope="col">Titre</th>
+    <th scope="col">Edition</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr data-toggle="modal" data-target="#descriptionLivre" *ngFor="let exemplaire of bibliotheque.exemp" style="cursor: pointer">
+    <td>{{ exemplaire.idExemplaire }}</td>
+    <td>{{ exemplaire.titre }}</td>
+    <td>{{ exemplaire.edition.nomEditeur }}</td>
+    <td>
+      <!-- Modal -->
+      <div class="modal fade" id="descriptionLivre" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">{{exemplaire.edition.oeuvre.titre}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              {{ exemplaire.edition.oeuvre.descri }}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" (click)="onClick(exemplaire)">Ajouter au panier</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</ng-container>
+<ng-container *ngIf="showManagerBoard">
+<a routerLink="/new-bibliotheque">Ajouter un livre</a>
+</ng-container>
+
+
+

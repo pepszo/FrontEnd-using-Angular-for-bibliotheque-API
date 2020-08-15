@@ -1,0 +1,9 @@
+.active{
+  data-toggle: modal;
+  data-target: #exampleModalLong;
+  margin-top: 500px;
+}
+
+.not-active{
+
+}

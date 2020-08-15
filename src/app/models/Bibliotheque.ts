@@ -7,9 +7,9 @@ export class Bibliotheque {
   idBibliotheque: number;
   adresse: string;
   tel: string;
-  bibliothecaires: Bibliothecaire[];
-  cotisations: Cotisation[];
-  exemplaires: Exemplaire[];
+  bibliothecaire: Bibliothecaire[];
+  cotisation: Cotisation[];
+  exemp: Exemplaire[];
 
   constructor( ) {
   }

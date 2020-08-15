@@ -1,5 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from './services/token-storage.service';
+import {CartService} from './services/cart.service';
+import {Exemplaire} from './models/Exemplaire';
+import {Cart} from './models/Cart';
 
 @Component({
   selector: 'app-root',
@@ -9,36 +12,41 @@ import {TokenStorageService} from './services/token-storage.service';
 export class AppComponent implements OnInit {
 
   title = 'bibliotheque_frontend';
-  role: string;
+  cart: Cart;
+  e: Exemplaire;
   isLoggedIn = false;
+  showLecteurBoard = false;
   showBibliothecaireBoard = false;
   showManagerBoard = false;
   showManagerGeneralBoard = false;
   username: string;
 
-  constructor(private tokenStorageService: TokenStorageService) { }
+  constructor(private tokenStorageService: TokenStorageService,
+              private cartService: CartService) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
-      this.role = this.tokenStorageService.getRole();
-      this.showBibliothecaireBoard = this.role.includes('ROLE_BIBLIOTHECAIRE');
 
-      if (this.role === 'ROLE_MANAGER') {
-        this.showManagerBoard = true;
-        this.showBibliothecaireBoard = true;
-      }
+      this.showBibliothecaireBoard = this.tokenStorageService.getRole().includes('BIBLIOTHECAIRE');
+      this.showManagerBoard = this.tokenStorageService.getRole().includes('MANAGER');
+      this.showManagerGeneralBoard = this.tokenStorageService.getRole().includes('GENERAL');
+      this.showLecteurBoard = this.tokenStorageService.getRole().includes('LECTEUR');
 
-      if (this.role === 'ROLE_MANAGER GENERAL') {
-        this.showManagerBoard = true;
-        this.showBibliothecaireBoard = true;
-        this.showManagerGeneralBoard = true;
-      }
+      if (this.showLecteurBoard){
 
-      if (this.role === 'ROLE_BIBLIOTHECAIRE') {
-        this.showBibliothecaireBoard = true;
+        this.e = new Exemplaire();
+        this.e.idExemplaire = 1;
+        this.e.titre = 'harry potter';
+
+        this.cartService.addToCart(this.e);
+        console.log(this.cartService.getCart());
+
+
+
+
       }
       this.username = user;
     }
@@ -47,5 +55,10 @@ export class AppComponent implements OnInit {
   logout(): void {
     this.tokenStorageService.signOut();
     window.location.reload();
+  }
+
+  onClick(idExemplaire): void {
+    this.cartService.removeFromCart(idExemplaire);
+    window.alert('item retiré');
   }
 }

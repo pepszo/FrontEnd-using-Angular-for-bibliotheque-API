@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Bibliotheque} from '../../../models/Bibliotheque';
 import {Subscription} from 'rxjs';
 import {BibliothequeService} from '../../../services/bibliotheque.service';
+import {TokenStorageService} from '../../../services/token-storage.service';
 
 @Component({
   selector: 'app-bibliotheque-list',
@@ -10,11 +11,12 @@ import {BibliothequeService} from '../../../services/bibliotheque.service';
 })
 export class BibliothequeListComponent implements OnInit, OnDestroy {
 
-  collapsed = true;
+  showManagerGeneralBoard = false;
   bibliotheques: Bibliotheque[];
   biblioSubscription: Subscription;
 
-  constructor(private bibliothequeService: BibliothequeService) { }
+  constructor(private bibliothequeService: BibliothequeService,
+              private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.biblioSubscription = this.bibliothequeService.getAllBibliotheque().subscribe(
@@ -25,6 +27,7 @@ export class BibliothequeListComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     );
+    this.showManagerGeneralBoard = this.tokenStorageService.getRole().includes('GENERAL');
   }
 
   ngOnDestroy(): void {
