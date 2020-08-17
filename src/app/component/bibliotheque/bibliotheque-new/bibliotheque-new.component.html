@@ -1,0 +1,13 @@
+<div class="col-sm-4">
+  <form [formGroup]="biblioForm" (ngSubmit)="onSubmitForm() ">
+    <div class="form-group ">
+      <label for="adresse">Adresse</label>
+      <input type="text" id="adresse" class="form-control" formControlName="adresse">
+    </div>
+    <div class="form-group">
+      <label for="tel">Telephonne</label>
+      <input type="text" id="tel" class="form-control" formControlName="tel">
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="biblioForm.invalid" style="margin-left: 17px">Soumettre</button>
+  </form>
+</div>

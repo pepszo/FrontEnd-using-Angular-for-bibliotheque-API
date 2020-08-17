@@ -53,8 +53,16 @@
   </div>
 
   <ul class="nav navbar-nav ml-auto " *ngIf="isLoggedIn">
-    <li class="nav-item " >
-      <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+    <li class="nav-item dropdown" >
+      <a class="nav-link dropdown-toggle" href="#" id="Profil" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{username}}
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Something else here</a>
+      </div>
     </li>
     <li class="nav-item ">
       <a href class="nav-link flex-row-reverse" (click)="logout()">LogOut</a>
@@ -74,12 +82,12 @@
           <div class="modal-body">
             <table>
             <tr  *ngFor="let exemplaire of cartService.getCart() ">
-              <td>{{ exemplaire.titre }} <img src="assets/img/remove_from_cart.png" style="width: 28px; margin-left: 320px; cursor: pointer;" (click)="onClick(exemplaire.idExemplaire)"></td>
+              <td>{{ exemplaire.edition.oeuvre.titre }} <img src="assets/img/remove_from_cart.png" style="width: 28px; margin-left: 320px; cursor: pointer;" (click)="onClick(exemplaire.idExemplaire)"></td>
             </tr>
             </table>
           </div>
           <div class="modal-footer">
-            <img src="/assets/img/add-to-cart-icon.jpg" alt="image"  style="width: 30px">
+            <button type="button" class="btn btn-light">Reserver</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>

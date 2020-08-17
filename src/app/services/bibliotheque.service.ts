@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Bibliotheque} from '../models/Bibliotheque';
-import {API_URL} from '../app.constants';
+import {API_URL, httpOptions} from '../app.constants';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -17,5 +17,9 @@ export class BibliothequeService {
 
   getBibliothequeById(id): Observable<Bibliotheque> {
     return this.httpClient.get <Bibliotheque> (API_URL + 'bibliotheque/' + id);
+  }
+
+  newBibliotheque(bibliotheque: Bibliotheque): Observable<Bibliotheque> {
+    return this.httpClient.post <Bibliotheque>(API_URL + 'bibliotheque/new', bibliotheque, httpOptions);
   }
 }

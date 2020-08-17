@@ -13,7 +13,6 @@ export class AppComponent implements OnInit {
 
   title = 'bibliotheque_frontend';
   cart: Cart;
-  e: Exemplaire;
   isLoggedIn = false;
   showLecteurBoard = false;
   showBibliothecaireBoard = false;
@@ -34,20 +33,6 @@ export class AppComponent implements OnInit {
       this.showManagerBoard = this.tokenStorageService.getRole().includes('MANAGER');
       this.showManagerGeneralBoard = this.tokenStorageService.getRole().includes('GENERAL');
       this.showLecteurBoard = this.tokenStorageService.getRole().includes('LECTEUR');
-
-      if (this.showLecteurBoard){
-
-        this.e = new Exemplaire();
-        this.e.idExemplaire = 1;
-        this.e.titre = 'harry potter';
-
-        this.cartService.addToCart(this.e);
-        console.log(this.cartService.getCart());
-
-
-
-
-      }
       this.username = user;
     }
   }

@@ -7,8 +7,6 @@ export class Exemplaire{
   idExemplaire: number;
   edition: Edition;
   bibliotheque: Bibliotheque;
-  titre: string;
-  prix: number;
   etat: Etat;
 
   constructor() {}

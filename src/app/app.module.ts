@@ -15,10 +15,13 @@ import { BibliothequeListComponent } from './component/bibliotheque/bibliotheque
 import {BibliothequeService} from './services/bibliotheque.service';
 import { BibliothequeCatalogueComponent } from './component/bibliotheque/bibliotheque-catalogue/bibliotheque-catalogue.component';
 import { CartComponent } from './component/cart/cart.component';
-import {Cart} from './models/Cart';
 import {CartService} from './services/cart.service';
+import { BibliothequeNewComponent } from './component/bibliotheque/bibliotheque-new/bibliotheque-new.component';
+import {RoleGuardService} from './services/role-guard.service';
+import { LivreNewComponent } from './component/livre/livre-new/livre-new.component';
 
 const appRoutes: Routes = [
+  { path: 'bibliotheques/new', canActivate: [RoleGuardService], component: BibliothequeNewComponent, data : { expectedRole: 'ROLE_BIBLIOTHECAIRE_MANAGER_GENERAL' }},
   { path: 'bibliotheques', component: BibliothequeListComponent},
   { path: 'bibliotheques/:id', component: BibliothequeCatalogueComponent},
   { path: 'login', component: LoginComponent },
@@ -35,6 +38,8 @@ const appRoutes: Routes = [
     BibliothequeListComponent,
     BibliothequeCatalogueComponent,
     CartComponent,
+    BibliothequeNewComponent,
+    LivreNewComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +53,7 @@ const appRoutes: Routes = [
     BibliothequeService,
     AuthService,
     AuthGuardService,
+    RoleGuardService,
     TokenStorageService,
     authInterceptorProviders
   ],

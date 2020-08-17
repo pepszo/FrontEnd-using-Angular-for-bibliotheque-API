@@ -12,7 +12,7 @@
   <tbody>
   <tr data-toggle="modal" data-target="#descriptionLivre" *ngFor="let exemplaire of bibliotheque.exemp" style="cursor: pointer">
     <td>{{ exemplaire.idExemplaire }}</td>
-    <td>{{ exemplaire.titre }}</td>
+    <td>{{ exemplaire.edition.oeuvre.titre}}</td>
     <td>{{ exemplaire.edition.nomEditeur }}</td>
     <td>
       <!-- Modal -->

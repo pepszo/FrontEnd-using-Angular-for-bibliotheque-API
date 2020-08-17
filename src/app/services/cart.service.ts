@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Exemplaire} from '../models/Exemplaire';
 import {Cart} from '../models/Cart';
-import {timeSinceInMicros} from '@angular/compiler-cli/src/ngtsc/perf/src/clock';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +24,10 @@ export class CartService {
   public removeFromCart(idExemplaire): void {
     this.cart.exemplaires = [];
     this.cart.exemplaires = this.getCart();
-    this.cart.exemplaires = this.cart.exemplaires.filter(exemplaire => exemplaire.idExemplaire !== idExemplaire);
+    const index: number = this.cart.exemplaires.indexOf(this.cart.exemplaires.find(exemplaire => exemplaire.idExemplaire === idExemplaire));
+    if ( index !== -1){
+      this.cart.exemplaires.splice(index, 1);
+    }
     localStorage.setItem('cart', JSON.stringify(this.cart.exemplaires));
   }
 
