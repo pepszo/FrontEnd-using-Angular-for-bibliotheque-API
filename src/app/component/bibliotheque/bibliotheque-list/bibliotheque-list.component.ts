@@ -27,7 +27,9 @@ export class BibliothequeListComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     );
-    this.showManagerGeneralBoard = this.tokenStorageService.getRole().includes('GENERAL');
+    if (this.tokenStorageService.getUser()){
+      this.showManagerGeneralBoard = this.tokenStorageService.getRole().includes('GENERAL');
+    }
   }
 
   ngOnDestroy(): void {

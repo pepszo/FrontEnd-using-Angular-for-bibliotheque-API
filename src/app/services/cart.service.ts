@@ -11,8 +11,15 @@ export class CartService {
 
   constructor() { }
 
+  public removeCart(): void {
+    localStorage.clear();
+  }
+
   public addToCart(exemplaire: Exemplaire): void {
-    this.cart.exemplaires = this.getCart();
+    this.cart.exemplaires = [];
+    if (this.getCart() !== null) {
+      this.cart.exemplaires = this.getCart();
+    }
     this.cart.exemplaires.push(exemplaire);
     localStorage.setItem('cart', JSON.stringify(this.cart.exemplaires));
 

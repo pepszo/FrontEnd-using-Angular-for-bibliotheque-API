@@ -5,6 +5,7 @@ import {BibliothequeService} from '../../../services/bibliotheque.service';
 import {ActivatedRoute} from '@angular/router';
 import {TokenStorageService} from '../../../services/token-storage.service';
 import {CartService} from '../../../services/cart.service';
+import {Exemplaire} from '../../../models/Exemplaire';
 
 @Component({
   selector: 'app-bibliotheque-catalogue',
@@ -12,7 +13,7 @@ import {CartService} from '../../../services/cart.service';
   styleUrls: ['./bibliotheque-catalogue.component.css']
 })
 export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
-
+  e: Exemplaire;
   showManagerBoard = false;
   bibliotheque: Bibliotheque;
   bibliothequeSubscription: Subscription;
@@ -20,7 +21,8 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
   constructor(private bibliothequeService: BibliothequeService,
               private route: ActivatedRoute,
               private tokenStorageService: TokenStorageService,
-              private cartService: CartService) { }
+              private cartService: CartService) {
+  }
 
   ngOnInit(): void {
     this.bibliothequeSubscription = this.bibliothequeService.getBibliothequeById(this.route.snapshot.params.id).subscribe(
@@ -31,7 +33,9 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     );
-    this.showManagerBoard = this.tokenStorageService.getRole().includes('MANAGER');
+    if (this.tokenStorageService.getUser()){
+      this.showManagerBoard = this.tokenStorageService.getRole().includes('MANAGER');
+    }
   }
 
   ngOnDestroy(): void {
@@ -40,7 +44,11 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
 
   onClick(exemplaire): void {
     this.cartService.addToCart(exemplaire);
-    console.log(this.cartService.getCart());
     window.alert('Item ajouté au panier');
   }
+
+  openModal(exemplaire: Exemplaire): void {
+    this.e = exemplaire;
+  }
+
 }

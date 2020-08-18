@@ -21,7 +21,8 @@ import {RoleGuardService} from './services/role-guard.service';
 import { LivreNewComponent } from './component/livre/livre-new/livre-new.component';
 
 const appRoutes: Routes = [
-  { path: 'bibliotheques/new', canActivate: [RoleGuardService], component: BibliothequeNewComponent, data : { expectedRole: 'ROLE_BIBLIOTHECAIRE_MANAGER_GENERAL' }},
+  { path: 'bibliotheques/:id/new', canActivate: [RoleGuardService], component: LivreNewComponent, data : { expectedRole: ['MANAGER', 'GENERAL']}},
+  { path: 'bibliotheques/new', canActivate: [RoleGuardService], component: BibliothequeNewComponent, data : { expectedRole: 'GENERAL'}},
   { path: 'bibliotheques', component: BibliothequeListComponent},
   { path: 'bibliotheques/:id', component: BibliothequeCatalogueComponent},
   { path: 'login', component: LoginComponent },

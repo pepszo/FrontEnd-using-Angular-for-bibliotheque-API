@@ -82,7 +82,8 @@
           <div class="modal-body">
             <table>
             <tr  *ngFor="let exemplaire of cartService.getCart() ">
-              <td>{{ exemplaire.edition.oeuvre.titre }} <img src="assets/img/remove_from_cart.png" style="width: 28px; margin-left: 320px; cursor: pointer;" (click)="onClick(exemplaire.idExemplaire)"></td>
+              <td>{{ exemplaire.edition.oeuvre.titre }}
+              <td><img src="assets/img/remove_from_cart.png" style="width: 20px; margin-left:150px; cursor: pointer;" (click)="onClick(exemplaire.idExemplaire)"></td>
             </tr>
             </table>
           </div>
