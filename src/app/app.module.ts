@@ -19,6 +19,7 @@ import {CartService} from './services/cart.service';
 import { BibliothequeNewComponent } from './component/bibliotheque/bibliotheque-new/bibliotheque-new.component';
 import {RoleGuardService} from './services/role-guard.service';
 import { LivreNewComponent } from './component/livre/livre-new/livre-new.component';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
 
 const appRoutes: Routes = [
   { path: 'bibliotheques/:id/new', canActivate: [RoleGuardService], component: LivreNewComponent, data : { expectedRole: ['MANAGER', 'GENERAL']}},
@@ -47,7 +48,8 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    MDBBootstrapModule.forRoot()
   ],
   providers: [
     CartService,

@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Bibliotheque} from '../../../models/Bibliotheque';
-import {Subscription} from 'rxjs';
+import {forkJoin, Subscription} from 'rxjs';
 import {BibliothequeService} from '../../../services/bibliotheque.service';
 import {ActivatedRoute} from '@angular/router';
 import {TokenStorageService} from '../../../services/token-storage.service';
 import {CartService} from '../../../services/cart.service';
 import {Exemplaire} from '../../../models/Exemplaire';
+import {Edition} from '../../../models/Edition';
 
 @Component({
   selector: 'app-bibliotheque-catalogue',
@@ -13,10 +14,12 @@ import {Exemplaire} from '../../../models/Exemplaire';
   styleUrls: ['./bibliotheque-catalogue.component.css']
 })
 export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
-  e: Exemplaire;
+  e: Edition;
+  editions: Edition[];
+  showLecteurBoard = false;
   showManagerBoard = false;
   bibliotheque: Bibliotheque;
-  bibliothequeSubscription: Subscription;
+  forkJoinSubscription: Subscription;
 
   constructor(private bibliothequeService: BibliothequeService,
               private route: ActivatedRoute,
@@ -25,30 +28,44 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.bibliothequeSubscription = this.bibliothequeService.getBibliothequeById(this.route.snapshot.params.id).subscribe(
-      (bibliotheque: Bibliotheque) => {
-        this.bibliotheque = bibliotheque;
-      },
+    this.forkJoinSubscription = forkJoin(
+      [this.bibliothequeService.getBibliothequeById(this.route.snapshot.params.id),
+              this.bibliothequeService.getAllEditionByBiblio(this.route.snapshot.params.id)]).subscribe(
+      data => {
+      this.bibliotheque = data[0];
+      this.editions = data[1];
+      console.log(this.bibliotheque);
+      console.log(this.editions);
+    },
       error => {
         console.log(error);
       }
-    );
+      );
+
+
     if (this.tokenStorageService.getUser()){
       this.showManagerBoard = this.tokenStorageService.getRole().includes('MANAGER');
+      this.showLecteurBoard = this.tokenStorageService.getRole().includes('LECTEUR');
     }
   }
 
   ngOnDestroy(): void {
-    this.bibliothequeSubscription.unsubscribe();
+    this.forkJoinSubscription.unsubscribe();
   }
 
   onClick(exemplaire): void {
-    this.cartService.addToCart(exemplaire);
-    window.alert('Item ajouté au panier');
+    if (this.showLecteurBoard){
+      this.cartService.addToCart(exemplaire);
+      window.alert('Item ajouté au panier');
+    }
+    else {
+      alert('Veuillez vous inscrire ou vous connecter pour reserver');
+    }
   }
 
-  openModal(exemplaire: Exemplaire): void {
-    this.e = exemplaire;
+  onOpenModal(edition: Edition): void {
+    console.log(edition);
+    this.e = edition;
   }
 
 }

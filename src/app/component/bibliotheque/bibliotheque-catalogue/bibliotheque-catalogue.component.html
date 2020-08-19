@@ -5,16 +5,18 @@
   <tr >
     <th scope="col">#</th>
     <th scope="col">Titre</th>
-    <th scope="col">Edition</th>
-    <th scope="col"></th>
+    <th scope="col">Editeur</th>
+    <th scope="col">Exemplaires disponible</th>
   </tr>
   </thead>
   <tbody>
-  <tr data-toggle="modal" data-target="#descriptionLivre" style="cursor: pointer" *ngFor="let exemplaire of bibliotheque.exemp" (click)="openModal(exemplaire)">
-    <td>{{ exemplaire.idExemplaire }}</td>
-    <td>{{ exemplaire.edition.oeuvre.titre}}</td>
-    <td>{{ exemplaire.edition.nomEditeur }}</td>
-    <td></td>
+  <tr data-toggle="modal" data-target="#descriptionLivre" style="cursor: pointer" *ngFor="let exemplaire of bibliotheque.exemp" (click)="onOpenModal(exemplaire.edition)">
+    <ng-container *ngIf="exemplaire.edition">
+      <td>{{ exemplaire.edition.idEdition }}</td>
+      <td>{{ exemplaire.edition.oeuvre.titre}}</td>
+      <td>{{ exemplaire.edition.nomEditeur }}</td>
+      <td style="padding-left: 100px">{{exemplaire.edition.exemplaire.length}}</td>
+    </ng-container>
   </tr>
   </tbody>
 </table>
@@ -29,13 +31,13 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">{{this.e.edition.oeuvre.titre}}</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">{{this.e.oeuvre.titre}}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          {{ this.e.edition.oeuvre.descri }}
+          {{ this.e.oeuvre.descri }}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-light" (click)="onClick(this.e)">Ajouter au panier</button>
