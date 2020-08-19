@@ -20,9 +20,9 @@
   </tr>
   </tbody>
 </table>
-</ng-container>
 <ng-container *ngIf="showManagerBoard">
-<a routerLink="/new-bibliotheque">Ajouter un livre</a>
+<a [routerLink]="['/bibliotheques',bibliotheque.idBibliotheque,'add-book']">Ajouter un livre</a>
+</ng-container>
 </ng-container>
 
 <!-- Modal -->

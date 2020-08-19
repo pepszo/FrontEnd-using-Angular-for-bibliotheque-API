@@ -18,12 +18,13 @@ import { CartComponent } from './component/cart/cart.component';
 import {CartService} from './services/cart.service';
 import { BibliothequeNewComponent } from './component/bibliotheque/bibliotheque-new/bibliotheque-new.component';
 import {RoleGuardService} from './services/role-guard.service';
-import { LivreNewComponent } from './component/livre/livre-new/livre-new.component';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NgSelectModule} from '@ng-select/ng-select';
+import { BibliothequeCatalogueAddBookComponent } from './component/bibliotheque/bibliotheque-catalogue-add-book/bibliotheque-catalogue-add-book.component';
 
 const appRoutes: Routes = [
-  { path: 'bibliotheques/:id/new', canActivate: [RoleGuardService], component: LivreNewComponent, data : { expectedRole: ['MANAGER', 'GENERAL']}},
+  { path: 'bibliotheques/:id/add-book', canActivate: [RoleGuardService], component: BibliothequeCatalogueAddBookComponent, data : { expectedRole: ['MANAGER', 'GENERAL']}},
   { path: 'bibliotheques/new', canActivate: [RoleGuardService], component: BibliothequeNewComponent, data : { expectedRole: 'GENERAL'}},
   { path: 'bibliotheques', component: BibliothequeListComponent},
   { path: 'bibliotheques/:id', component: BibliothequeCatalogueComponent},
@@ -42,7 +43,7 @@ const appRoutes: Routes = [
     BibliothequeCatalogueComponent,
     CartComponent,
     BibliothequeNewComponent,
-    LivreNewComponent,
+    BibliothequeCatalogueAddBookComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
+    NgSelectModule,
   ],
   providers: [
     CartService,

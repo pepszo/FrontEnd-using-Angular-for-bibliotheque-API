@@ -1,8 +1,10 @@
 <h2>Erreur 404</h2>
 <p>La page que vous cherchez n'existe pas !</p>
 
-<select class="selectpicker" data-live-search="true">
-  <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
-  <option data-tokens="mustard">Burger, Shake and a Smile</option>
-  <option data-tokens="frosting">Sugar, Spice and all things nice</option>
-</select>
+<ng-select [items]="items"
+           bindLabel="name"
+           placeholder="Select item"
+           appendTo="body"
+           multiple="true"
+           [(ngModel)]="selected">
+</ng-select>

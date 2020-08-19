@@ -31,4 +31,8 @@ export class BibliothequeService {
   getCountOfExemplaireByEdition(idBiblio, idEdition): Observable<number>{
     return this.httpClient.get <number> (API_URL + 'bibliotheque/' + idBiblio + '/edition' + idEdition);
   }
+
+  getAllEditions(): Observable<Edition[]> {
+    return this.httpClient.get<Edition[]>(API_URL + 'editions/all');
+  }
 }

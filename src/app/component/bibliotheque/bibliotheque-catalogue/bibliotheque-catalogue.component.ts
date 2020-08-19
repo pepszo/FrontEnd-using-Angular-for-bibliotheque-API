@@ -1,11 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Bibliotheque} from '../../../models/Bibliotheque';
-import {forkJoin, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {BibliothequeService} from '../../../services/bibliotheque.service';
 import {ActivatedRoute} from '@angular/router';
 import {TokenStorageService} from '../../../services/token-storage.service';
 import {CartService} from '../../../services/cart.service';
-import {Exemplaire} from '../../../models/Exemplaire';
 import {Edition} from '../../../models/Edition';
 
 @Component({
@@ -15,11 +14,12 @@ import {Edition} from '../../../models/Edition';
 })
 export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
   e: Edition;
-  editions: Edition[];
+  // editions: Edition[];
   showLecteurBoard = false;
   showManagerBoard = false;
   bibliotheque: Bibliotheque;
-  forkJoinSubscription: Subscription;
+  // forkJoinSubscription: Subscription;
+  bibliothequeSubscription: Subscription;
 
   constructor(private bibliothequeService: BibliothequeService,
               private route: ActivatedRoute,
@@ -28,7 +28,7 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.forkJoinSubscription = forkJoin(
+   /* this.forkJoinSubscription = forkJoin(
       [this.bibliothequeService.getBibliothequeById(this.route.snapshot.params.id),
               this.bibliothequeService.getAllEditionByBiblio(this.route.snapshot.params.id)]).subscribe(
       data => {
@@ -40,8 +40,16 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
       error => {
         console.log(error);
       }
-      );
+      );*/
 
+    this.bibliothequeSubscription = this.bibliothequeService.getBibliothequeById(this.route.snapshot.params.id).subscribe(
+      data => {
+        this.bibliotheque = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
 
     if (this.tokenStorageService.getUser()){
       this.showManagerBoard = this.tokenStorageService.getRole().includes('MANAGER');
@@ -50,7 +58,8 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.forkJoinSubscription.unsubscribe();
+    // this.forkJoinSubscription.unsubscribe();
+    this.bibliothequeSubscription.unsubscribe();
   }
 
   onClick(exemplaire): void {
@@ -64,8 +73,8 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
   }
 
   onOpenModal(edition: Edition): void {
-    console.log(edition);
     this.e = edition;
   }
 
 }
+
