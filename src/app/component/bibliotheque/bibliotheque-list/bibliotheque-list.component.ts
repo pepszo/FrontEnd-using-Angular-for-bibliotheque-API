@@ -7,7 +7,7 @@ import {TokenStorageService} from '../../../services/token-storage.service';
 @Component({
   selector: 'app-bibliotheque-list',
   templateUrl: './bibliotheque-list.component.html',
-  styleUrls: ['./bibliotheque-list.component.css']
+  styleUrls: ['./bibliotheque-list.component.scss']
 })
 export class BibliothequeListComponent implements OnInit, OnDestroy {
 

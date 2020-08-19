@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-bibliotheque-new',
   templateUrl: './bibliotheque-new.component.html',
-  styleUrls: ['./bibliotheque-new.component.css']
+  styleUrls: ['./bibliotheque-new.component.scss']
 })
 export class BibliothequeNewComponent implements OnInit, OnDestroy {
 

@@ -11,7 +11,7 @@ import {Edition} from '../../../models/Edition';
 @Component({
   selector: 'app-bibliotheque-catalogue',
   templateUrl: './bibliotheque-catalogue.component.html',
-  styleUrls: ['./bibliotheque-catalogue.component.css']
+  styleUrls: ['./bibliotheque-catalogue.component.scss']
 })
 export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
   e: Edition;

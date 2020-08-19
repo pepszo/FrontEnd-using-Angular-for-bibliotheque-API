@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {RouterModule, Routes} from '@angular/router';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, NgSelectOption, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { FourOhFourComponent } from './component/four-oh-four/four-oh-four.component';
 import {AuthService} from './services/auth.service';
@@ -20,6 +20,7 @@ import { BibliothequeNewComponent } from './component/bibliotheque/bibliotheque-
 import {RoleGuardService} from './services/role-guard.service';
 import { LivreNewComponent } from './component/livre/livre-new/livre-new.component';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   { path: 'bibliotheques/:id/new', canActivate: [RoleGuardService], component: LivreNewComponent, data : { expectedRole: ['MANAGER', 'GENERAL']}},
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    BrowserAnimationsModule,
   ],
   providers: [
     CartService,
