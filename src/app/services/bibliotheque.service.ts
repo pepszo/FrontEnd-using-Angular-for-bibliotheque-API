@@ -4,6 +4,8 @@ import {Bibliotheque} from '../models/Bibliotheque';
 import {API_URL, httpOptions} from '../app.constants';
 import {Observable} from 'rxjs';
 import {Edition} from '../models/Edition';
+import {Etat} from '../models/Etat';
+import {Exemplaire} from '../models/Exemplaire';
 
 @Injectable({
   providedIn: 'root'
@@ -29,10 +31,23 @@ export class BibliothequeService {
   }
 
   getCountOfExemplaireByEdition(idBiblio, idEdition): Observable<number>{
-    return this.httpClient.get <number> (API_URL + 'bibliotheque/' + idBiblio + '/edition' + idEdition);
+    return this.httpClient.get <number> (API_URL + 'bibliotheque/' + idBiblio + '/edition/' + idEdition);
+  }
+
+  getCountOfExemplaire(idBiblio): Observable<number[]>{
+    return this.httpClient.get <number[]> (API_URL + 'bibliotheque/' + idBiblio + '/edition-counts');
   }
 
   getAllEditions(): Observable<Edition[]> {
     return this.httpClient.get<Edition[]>(API_URL + 'editions/all');
+  }
+
+  getAllEtats(): Observable<Etat[]> {
+    return this.httpClient.get<Etat[]>(API_URL + 'etat/all');
+  }
+
+  newExemplaire(exemplaire: Exemplaire, idBibliotheque): Observable<Exemplaire> {
+    // tslint:disable-next-line:max-line-length
+    return this.httpClient.post <Exemplaire>(API_URL + 'bibliotheque/' + idBibliotheque + '/add-book', exemplaire, httpOptions);
   }
 }

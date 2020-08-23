@@ -8,6 +8,7 @@ export class Edition {
   nomEditeur: string;
   dateEdition: Date;
   exemplaire: Exemplaire[];
+  countOfExempByEdition: number;
 
   constructor() {}
 }

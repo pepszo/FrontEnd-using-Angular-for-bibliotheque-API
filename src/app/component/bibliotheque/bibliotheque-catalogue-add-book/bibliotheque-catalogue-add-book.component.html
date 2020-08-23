@@ -1,3 +1,33 @@
 <ng-container *ngIf="bibliotheque">
   <h2>Catalogue de la bibliotheque de {{bibliotheque.adresse}}</h2>
 </ng-container>
+<div class="container text-center">
+  <div class="row justify-content-center">
+    <div style="margin-top: 40px;width: 600px ">
+      <form [formGroup]="exempForm" (ngSubmit)="onSubmitForm()">
+        <div class="form-group">
+          <ng-select bindLabel="edition"
+                     placeholder="Choisir le livre à ajouter"
+                     appendTo="body"
+                     formControlName="edition"
+                     [searchable]="true">
+            <ng-option [value]="edition" *ngFor="let edition of editions"><p>
+              {{edition.oeuvre.titre}} | Edition {{edition.nomEditeur}}</p>
+            </ng-option>
+          </ng-select>
+        </div>
+        <div class="form-group">
+          <ng-select bindLabel="etat"
+                     placeholder="Choisir l'état du livre"
+                     appendTo="body"
+                     formControlName="etat">
+            <ng-option [value]="etat" *ngFor="let etat of etats">
+              {{etat.label}}
+            </ng-option>
+          </ng-select>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="exempForm.invalid" style="margin-left: 17px">Soumettre</button>
+      </form>
+    </div>
+  </div>
+</div>

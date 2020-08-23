@@ -10,12 +10,12 @@
   </tr>
   </thead>
   <tbody>
-  <tr data-toggle="modal" data-target="#descriptionLivre" style="cursor: pointer" *ngFor="let exemplaire of bibliotheque.exemp" (click)="onOpenModal(exemplaire.edition)">
-    <ng-container *ngIf="exemplaire.edition">
-      <td>{{ exemplaire.edition.idEdition }}</td>
-      <td>{{ exemplaire.edition.oeuvre.titre}}</td>
-      <td>{{ exemplaire.edition.nomEditeur }}</td>
-      <td style="padding-left: 100px">{{exemplaire.edition.exemplaire.length}}</td>
+  <tr data-toggle="modal" data-target="#descriptionLivre" style="cursor: pointer" *ngFor="let edition of editions"  (click)="onOpenModal(edition)">
+    <ng-container *ngIf="edition">
+      <td>{{ edition.idEdition }}</td>
+      <td>{{ edition.oeuvre.titre}}</td>
+      <td>{{ edition.nomEditeur }}</td>
+      <td style="padding-left: 100px" >{{edition.countOfExempByEdition}}</td>
     </ng-container>
   </tr>
   </tbody>
