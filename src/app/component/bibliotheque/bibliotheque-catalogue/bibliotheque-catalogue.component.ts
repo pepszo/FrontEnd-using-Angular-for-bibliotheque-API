@@ -21,7 +21,8 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
   editions: Edition[] = [];
   showLecteurBoard = false;
   showManagerBoard = false;
-  bibliotheque: Bibliotheque;
+  reservePermission = false;
+  bibliotheque = new Bibliotheque();
   forkJoinSubscription: Subscription;
   bibliothequeSubscription: Subscription;
   private exemplaire: Exemplaire;
@@ -35,10 +36,11 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+   this.bibliotheque.idBibliotheque = this.route.snapshot.params.id;
    this.forkJoinSubscription = forkJoin(
-      [this.bibliothequeService.getBibliothequeById(this.route.snapshot.params.id),
-              this.bibliothequeService.getAllEditionByBiblio(this.route.snapshot.params.id),
-              this.bibliothequeService.getCountOfExemplaire(this.route.snapshot.params.id)]).subscribe(
+      [this.bibliothequeService.getBibliothequeById(this.bibliotheque.idBibliotheque),
+              this.bibliothequeService.getAllEditionByBiblio(this.bibliotheque.idBibliotheque),
+              this.bibliothequeService.getCountOfExemplaire(this.bibliotheque.idBibliotheque)]).subscribe(
       data => {
       this.bibliotheque = data[0];
       this.editions = data[1];
@@ -74,6 +76,9 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
       this.showManagerBoard = this.tokenStorageService.getRole().includes('MANAGER');
       this.showLecteurBoard = this.tokenStorageService.getRole().includes('LECTEUR');
     }
+   if (this.showLecteurBoard) {
+     this.reservePermission = this.tokenStorageService.getCotisations().includes(this.bibliotheque.idBibliotheque.toString());
+   }
   }
 
   ngOnDestroy(): void {
@@ -82,11 +87,16 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
 
   onClick(edition): void {
     if (this.showLecteurBoard){
-      this.exemplaire = new Exemplaire();
-      this.exemplaire.edition = edition;
-      this.exemplaire.bibliotheque = this.bibliotheque;
-      this.cartService.addToCart(this.exemplaire);
-      window.alert('Item ajouté au panier');
+      if (this.reservePermission) {
+        this.exemplaire = new Exemplaire();
+        this.exemplaire.edition = edition;
+        this.exemplaire.bibliotheque = this.bibliotheque;
+        this.cartService.addToCart(this.exemplaire);
+        alert('Item ajouté au panier');
+      }
+      else {
+        alert('Vous n avez pas payé la cotisation pour cette bibliotheque');
+      }
     }
     else {
       alert('Veuillez vous inscrire ou vous connecter pour reserver');

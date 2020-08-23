@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Cart} from '../models/Cart';
+import {Cotisation} from '../models/Cotisation';
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 const USER_ROLE = 'auth-role';
+const USER_COTISATIONS = 'auth-cotisations';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,14 @@ export class TokenStorageService {
 
   public getRole(): string {
     return (sessionStorage.getItem(USER_ROLE));
+  }
+
+  public saveCotisations(cotisations: string[]): void {
+    window.sessionStorage.removeItem(USER_COTISATIONS);
+    window.sessionStorage.setItem(USER_COTISATIONS, JSON.stringify(cotisations));
+  }
+
+  public getCotisations(): string[] {
+    return JSON.parse(sessionStorage.getItem(USER_COTISATIONS));
   }
 }

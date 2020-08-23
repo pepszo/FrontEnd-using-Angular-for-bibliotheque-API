@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {Exemplaire} from '../models/Exemplaire';
 import {Cart} from '../models/Cart';
 
+const USER_CART = 'user-cart';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,11 +23,11 @@ export class CartService {
       this.cart.exemplaires = this.getCart();
     }
     this.cart.exemplaires.push(exemplaire);
-    localStorage.setItem('cart', JSON.stringify(this.cart.exemplaires));
+    localStorage.setItem(USER_CART, JSON.stringify(this.cart.exemplaires));
 
   }
   public getCart(): Exemplaire[] {
-    return JSON.parse(localStorage.getItem('cart'));
+    return JSON.parse(localStorage.getItem(USER_CART));
   }
 
   public removeFromCart(idExemplaire): void {
@@ -35,7 +37,7 @@ export class CartService {
     if ( index !== -1){
       this.cart.exemplaires.splice(index, 1);
     }
-    localStorage.setItem('cart', JSON.stringify(this.cart.exemplaires));
+    localStorage.setItem(USER_CART, JSON.stringify(this.cart.exemplaires));
   }
 
 }

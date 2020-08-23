@@ -28,4 +28,8 @@ export class AuthService {
   getRoleFromServer(): Observable<any> {
     return this.http.get <any>(API_URL + 'ur');
   }
+
+  getCotisationFromServer(username: string): Observable<string[]> {
+    return this.http.get<string[]>(API_URL + 'bibliotheque/cotisation/' +  username);
+  }
 }
