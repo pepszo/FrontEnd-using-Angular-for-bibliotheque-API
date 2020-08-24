@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -22,8 +22,13 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgSelectModule} from '@ng-select/ng-select';
 import { BibliothequeCatalogueAddBookComponent } from './component/bibliotheque/bibliotheque-catalogue-add-book/bibliotheque-catalogue-add-book.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatSliderModule } from '@angular/material/slider';
 
 const appRoutes: Routes = [
+  // tslint:disable-next-line:max-line-length
   { path: 'bibliotheques/:id/add-book', canActivate: [RoleGuardService], component: BibliothequeCatalogueAddBookComponent, data : { expectedRole: ['MANAGER', 'GENERAL']}},
   { path: 'bibliotheques/new', canActivate: [RoleGuardService], component: BibliothequeNewComponent, data : { expectedRole: 'GENERAL'}},
   { path: 'bibliotheques', component: BibliothequeListComponent},
@@ -54,6 +59,13 @@ const appRoutes: Routes = [
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
     NgSelectModule,
+    NgbModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatSliderModule,
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [
     CartService,

@@ -10,7 +10,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr data-toggle="modal" data-target="#descriptionLivre" style="cursor: pointer" *ngFor="let edition of editions"  (click)="onOpenModal(edition)">
+  <tr data-toggle="modal" data-target="#descriptionLivre" style="cursor: pointer" *ngFor="let edition of editions"  (click)="onOpenModal(bookDescription, edition)">
     <ng-container *ngIf="edition">
       <td>{{ edition.idEdition }}</td>
       <td>{{ edition.oeuvre.titre}}</td>
@@ -26,27 +26,25 @@
 </ng-container>
 
 <!-- Modal -->
-<ng-container *ngIf="e">
-  <div class="modal fade" id="descriptionLivre" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">{{this.e.oeuvre.titre}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+<ng-template #bookDescription let-modal>
+  <ng-container *ngIf="e">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title" id="exampleModalLongTitle">{{this.e.oeuvre.titre}}</h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {{ this.e.oeuvre.descri }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" ngbAutoFocus class="btn btn-light" (click)="onClick(this.e)">Ajouter au panier</button>
+            <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+          </div>
         </div>
-        <div class="modal-body">
-          {{ this.e.oeuvre.descri }}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-light" (click)="onClick(this.e)">Ajouter au panier</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-container>
+  </ng-container>
+</ng-template>
 
 
 

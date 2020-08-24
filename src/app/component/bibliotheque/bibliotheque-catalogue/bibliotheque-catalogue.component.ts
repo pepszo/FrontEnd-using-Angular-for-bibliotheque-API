@@ -8,6 +8,7 @@ import {CartService} from '../../../services/cart.service';
 import {Edition} from '../../../models/Edition';
 import {Exemplaire} from '../../../models/Exemplaire';
 import {element} from 'protractor';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-bibliotheque-catalogue',
@@ -32,7 +33,8 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
   constructor(private bibliothequeService: BibliothequeService,
               private route: ActivatedRoute,
               private tokenStorageService: TokenStorageService,
-              private cartService: CartService) {
+              private cartService: CartService,
+              private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -44,6 +46,7 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
       data => {
       this.bibliotheque = data[0];
       this.editions = data[1];
+      console.log(this.editions);
       this.$countOfExempl = data[2];
       this.editions.forEach(n => {
         n.countOfExempByEdition = this.$countOfExempl[this.i];
@@ -103,8 +106,9 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
     }
   }
 
-  onOpenModal(edition: Edition): void {
+  onOpenModal(bookDescription, edition: Edition): void {
     this.e = edition;
+    this.modalService.open(bookDescription, {scrollable: true, centered: true});
   }
 
 }

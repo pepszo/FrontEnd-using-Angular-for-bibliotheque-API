@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from './services/token-storage.service';
 import {CartService} from './services/cart.service';
-import {Exemplaire} from './models/Exemplaire';
 import {Cart} from './models/Cart';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,9 @@ export class AppComponent implements OnInit {
   username: string;
 
   constructor(private tokenStorageService: TokenStorageService,
-              private cartService: CartService) { }
+              private cartService: CartService,
+              private modalService: NgbModal,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -34,6 +37,16 @@ export class AppComponent implements OnInit {
       this.showLecteurBoard = this.tokenStorageService.getRole().includes('LECTEUR');
       this.username = user;
     }
+    this.router.events.subscribe(event => {
+
+      if (event instanceof NavigationEnd) {
+
+        // close all open modals
+        this.modalService.dismissAll();
+
+      }
+
+    });
   }
 
   logout(): void {

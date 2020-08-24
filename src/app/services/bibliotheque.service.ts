@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Bibliotheque} from '../models/Bibliotheque';
 import {API_URL, httpOptions} from '../app.constants';
 import {Observable} from 'rxjs';
 import {Edition} from '../models/Edition';
 import {Etat} from '../models/Etat';
 import {Exemplaire} from '../models/Exemplaire';
+import {Cotisation} from '../models/Cotisation';
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +50,10 @@ export class BibliothequeService {
   newExemplaire(exemplaire: Exemplaire, idBibliotheque): Observable<Exemplaire> {
     // tslint:disable-next-line:max-line-length
     return this.httpClient.post <Exemplaire>(API_URL + 'bibliotheque/' + idBibliotheque + '/add-book', exemplaire, httpOptions);
+  }
+
+  newCotisation(emailLecteur: string, idBibliotheque: number): Observable<Cotisation> {
+    // tslint:disable-next-line:max-line-length
+    return this.httpClient.post<Cotisation> (API_URL + 'bibliotheque/cotisation/new?emailLecteur=' + emailLecteur + '&idBibliotheque=' + idBibliotheque, httpOptions);
   }
 }

@@ -18,6 +18,7 @@ export class CartService {
   }
 
   public addToCart(exemplaire: Exemplaire): void {
+    console.log(exemplaire);
     this.cart.exemplaires = [];
     if (this.getCart() !== null) {
       this.cart.exemplaires = this.getCart();

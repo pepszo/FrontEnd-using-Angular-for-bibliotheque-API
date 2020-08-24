@@ -6,20 +6,60 @@
       <th scope="col">#</th>
       <th scope="col">Adresse</th>
       <th scope="col">Tel</th>
-      <th scope="col"></th>
+      <th scope="col" *ngIf="showLecteurBoard">Cotisation</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let bibliotheque of bibliotheques">
-      <td>{{ bibliotheque.idBibliotheque }}</td>
-      <td>{{ bibliotheque.adresse }}</td>
-      <td>{{ bibliotheque.tel }}</td>
-      <td><a [routerLink]="[bibliotheque.idBibliotheque]"><button class="btn btn-primary" type="submit">Catalogue</button></a></td>
+    <tr *ngFor="let bibliotheque of bibliotheques" >
+      <td style="cursor: pointer;" (click)="onClick(bibliotheque.idBibliotheque)">{{ bibliotheque.idBibliotheque }}</td>
+      <td style="cursor: pointer;" (click)="onClick(bibliotheque.idBibliotheque)">{{ bibliotheque.adresse }}</td>
+      <td style="cursor: pointer;" (click)="onClick(bibliotheque.idBibliotheque)">{{ bibliotheque.tel }}</td>
+      <ng-container *ngIf="showLecteurBoard">
+        <ng-container *ngIf="cotisations; else elseBlock">
+          <td *ngIf="cotisations.includes(bibliotheque.idBibliotheque.toString())">Payé<img style="padding-left: 20px" src="assets/img/cotisation_payé.png"></td>
+          <td data-toggle="modal" data-target="#descriptionLivre" style="cursor: pointer;" (click)="onClickPayement(longContent, bibliotheque)" *ngIf="!cotisations.includes(bibliotheque.idBibliotheque.toString())"><p style="padding-left: 5px">Non payé</p></td>
+        </ng-container>
+        <ng-template #elseBlock>
+          <td data-toggle="modal" data-target="#descriptionLivre" style="cursor: pointer;" (click)="onClickPayement(longContent, bibliotheque)"><p style="padding-left: 5px">Non payé</p></td>
+        </ng-template>
+      </ng-container>
     </tr>
     </tbody>
   </table>
 <ng-container *ngIf="this.showManagerGeneralBoard">
   <a routerLink="/bibliotheques/new">Ajouter une bibliotheque</a>
 </ng-container>
+
+<!-- Modal -->
+<ng-template #longContent let-modal>
+  <div class="modal-header">
+    <h2 class="modal-title">Payement de cotisation</h2>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <div class="row justify-content-md-end">
+        <div class="col-auto mr-auto">
+          <h4>Bibliotheque de {{this.bibliotequePayement.adresse}}</h4>
+        </div>
+        <div class="col-auto">
+          <h4>Montant : 10€</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <ng-container *ngIf="validation === 1">
+      <mat-spinner diameter="30"></mat-spinner>
+    </ng-container>
+    <ng-container *ngIf="validation === 2"><img src="assets/img/succes.png"></ng-container>
+    <button type="button" class="btn btn-light" (click)="onPayer()">Payer</button>
+    <button type="button" ngbAutoFocus class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+
 
 
