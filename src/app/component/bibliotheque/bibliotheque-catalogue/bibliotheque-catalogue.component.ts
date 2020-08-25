@@ -1,13 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Bibliotheque} from '../../../models/Bibliotheque';
-import {forkJoin, Observable, Subscription} from 'rxjs';
+import {forkJoin, Subscription} from 'rxjs';
 import {BibliothequeService} from '../../../services/bibliotheque.service';
 import {ActivatedRoute} from '@angular/router';
 import {TokenStorageService} from '../../../services/token-storage.service';
 import {CartService} from '../../../services/cart.service';
 import {Edition} from '../../../models/Edition';
 import {Exemplaire} from '../../../models/Exemplaire';
-import {element} from 'protractor';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -80,7 +79,9 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
       this.showLecteurBoard = this.tokenStorageService.getRole().includes('LECTEUR');
     }
    if (this.showLecteurBoard) {
-     this.reservePermission = this.tokenStorageService.getCotisations().includes(this.bibliotheque.idBibliotheque.toString());
+     if (this.tokenStorageService.getCotisations() !== null) {
+       this.reservePermission = this.tokenStorageService.getCotisations().includes(this.bibliotheque.idBibliotheque.toString());
+     }
    }
   }
 

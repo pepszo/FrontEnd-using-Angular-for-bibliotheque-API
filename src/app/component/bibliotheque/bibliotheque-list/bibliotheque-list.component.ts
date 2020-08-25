@@ -55,12 +55,17 @@ export class BibliothequeListComponent implements OnInit, OnDestroy {
 
   onClick(id): void{
     if (this.showLecteurBoard) {
-      if (this.cotisations.includes(id.toString())) {
-        this.payement = true;
-        this.router.navigate(['/bibliotheques/' + id], { queryParams: { payement: this.payement } });
+      if (this.cotisations !== null) {
+        if (this.cotisations.includes(id.toString())) {
+          this.payement = true;
+          this.router.navigate(['/bibliotheques/' + id], { queryParams: { payement: this.payement } });
+        }
+        else {
+          this.router.navigate(['/bibliotheques/' + id], { queryParams: { payement: this.payement }});
+        }
       }
       else {
-        this.router.navigate(['/bibliotheques/' + id], { queryParams: { payement: this.payement }});
+        this.router.navigate(['/bibliotheques/' + id]);
       }
     }
     else {

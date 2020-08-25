@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import {TokenStorageService} from '../../services/token-storage.service';
 import {forkJoin, Subscription} from 'rxjs';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-auth',
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit{
   loginSubscription: Subscription;
   roleSubscription: Subscription;
   cotisationSubscription: Subscription;
+  private decodedToken: any;
 
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
@@ -34,6 +36,11 @@ export class LoginComponent implements OnInit{
     this.loginSubscription = this.authService.login(this.form).subscribe(
       data => {
         this.tokenStorage.saveToken(data.token);
+        this.tokenStorage.getToken();
+        if (data) {
+          this.decodedToken = jwt_decode(data.token);
+        }
+
         this.tokenStorage.saveUser(this.form.username);
         this.roleSubscription = this.authService.getRoleFromServer().subscribe(
           data2 => {
