@@ -16,11 +16,8 @@ export class LoginComponent implements OnInit{
   isLoginFailed = false;
   errorMessage = '';
   role: string;
-  sliced: string;
   loginSubscription: Subscription;
-  roleSubscription: Subscription;
   cotisationSubscription: Subscription;
-  private decodedToken: any;
 
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
@@ -36,33 +33,24 @@ export class LoginComponent implements OnInit{
     this.loginSubscription = this.authService.login(this.form).subscribe(
       data => {
         this.tokenStorage.saveToken(data.token);
-        this.tokenStorage.getToken();
         if (data) {
-          this.decodedToken = jwt_decode(data.token);
+          const decodedToken = jwt_decode(data.token);
+          this.tokenStorage.saveUser(decodedToken.sub);
+          this.tokenStorage.saveRole(decodedToken.role);
         }
-
-        this.tokenStorage.saveUser(this.form.username);
-        this.roleSubscription = this.authService.getRoleFromServer().subscribe(
-          data2 => {
-            this.sliced = JSON.stringify(data2).slice(15);
-            this.sliced = this.sliced.slice(0, -3);
-            this.tokenStorage.saveRole(this.sliced);
-
-            if (this.tokenStorage.getRole().includes('LECTEUR')) {
-              this.cotisationSubscription = this.authService.getCotisationFromServer(this.form.username).subscribe(
-                cotisations => {
-                  this.tokenStorage.saveCotisations(cotisations);
-                  this.isLoginFailed = false;
-                  this.isLoggedIn = true;
-                  this.role = this.tokenStorage.getRole();
-                  this.reloadPage();
-              });
-            }
-            else {
-                this.reloadPage();
-              }
-          }
-        );
+        if (this.tokenStorage.getRole().includes('LECTEUR')) {
+          this.cotisationSubscription = this.authService.getCotisationFromServer(this.form.username).subscribe(
+            cotisations => {
+              this.tokenStorage.saveCotisations(cotisations);
+              this.isLoginFailed = false;
+              this.isLoggedIn = true;
+              this.role = this.tokenStorage.getRole();
+              this.reloadPage();
+            });
+        }
+        else {
+          this.reloadPage();
+        }
       },
       err => {
         this.errorMessage = err.error = 'Invalid username and/or password';

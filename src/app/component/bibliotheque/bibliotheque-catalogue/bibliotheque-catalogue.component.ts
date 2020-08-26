@@ -25,7 +25,6 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
   bibliotheque = new Bibliotheque();
   forkJoinSubscription: Subscription;
   bibliothequeSubscription: Subscription;
-  private exemplaire: Exemplaire;
   countOfExemplaireSubscription: Subscription;
   private i = 0;
 
@@ -92,11 +91,13 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
   onClick(edition): void {
     if (this.showLecteurBoard){
       if (this.reservePermission) {
-        this.exemplaire = new Exemplaire();
-        this.exemplaire.edition = edition;
-        this.exemplaire.bibliotheque = this.bibliotheque;
-        this.cartService.addToCart(this.exemplaire);
-        alert('Item ajouté au panier');
+        this.bibliothequeService.getOneExemplaireByEdition(edition.idEdition).subscribe(
+          data => {
+            console.log(data);
+            data.bibliotheque = this.bibliotheque;
+            this.cartService.addToCart(data);
+          }
+        );
       }
       else {
         alert('Vous n avez pas payé la cotisation pour cette bibliotheque');

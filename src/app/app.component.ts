@@ -55,7 +55,13 @@ export class AppComponent implements OnInit {
   }
 
   onClick(idExemplaire): void {
-    this.cartService.removeFromCart(idExemplaire);
-    window.alert('item retiré');
+    if (window.confirm('Etes vous sûr de supprimer cet item?')){
+      this.cartService.removeFromCart(idExemplaire);
+      window.alert('item retiré');
+    }
+  }
+
+  onReserver(): void {
+    this.router.navigate(['/reservation']);
   }
 }

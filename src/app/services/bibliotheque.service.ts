@@ -56,4 +56,10 @@ export class BibliothequeService {
     // tslint:disable-next-line:max-line-length
     return this.httpClient.post<Cotisation> (API_URL + 'bibliotheque/cotisation/new?emailLecteur=' + emailLecteur + '&idBibliotheque=' + idBibliotheque, httpOptions);
   }
+
+  getOneExemplaireByEdition(idEdition: number): Observable<Exemplaire> {
+    const params = new HttpParams()
+      .set('idEdition', idEdition.toString());
+    return this.httpClient.get<Exemplaire>(API_URL + 'bibliotheque/exemplaire', {params});
+  }
 }

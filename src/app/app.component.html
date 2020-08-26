@@ -90,7 +90,7 @@
             </table>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-light">Reserver</button>
+            <button type="button" class="btn btn-light" data-dismiss="modal" (click)="onReserver()">Reserver</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
@@ -101,10 +101,6 @@
   <ul class="nav navbar-nav ml-auto " *ngIf="!isLoggedIn">
     <li class="nav-item active" routerLinkActive="active"><a class="nav-link" routerLink="login">LogIn</a></li>
   </ul>
-
-
-
-
 </nav>
 
 <router-outlet></router-outlet>

@@ -26,10 +26,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatSliderModule } from '@angular/material/slider';
+import { LocationComponent } from './component/location/location.component';
 
 const appRoutes: Routes = [
   // tslint:disable-next-line:max-line-length
-  { path: 'bibliotheques/:id/add-book', canActivate: [RoleGuardService], component: BibliothequeCatalogueAddBookComponent, data : { expectedRole: ['MANAGER', 'GENERAL']}},
+  { path: 'reservation', canActivate: [RoleGuardService], component: LocationComponent, data : { expectedRole: ['LECTEUR'] } },
+  { path: 'bibliotheques/:id/add-book', canActivate: [RoleGuardService], component: BibliothequeCatalogueAddBookComponent, data : { expectedRole: ['MANAGER', 'GENERAL']  } },
   { path: 'bibliotheques/new', canActivate: [RoleGuardService], component: BibliothequeNewComponent, data : { expectedRole: 'GENERAL'}},
   { path: 'bibliotheques', component: BibliothequeListComponent},
   { path: 'bibliotheques/:id', component: BibliothequeCatalogueComponent},
@@ -49,6 +51,7 @@ const appRoutes: Routes = [
     CartComponent,
     BibliothequeNewComponent,
     BibliothequeCatalogueAddBookComponent,
+    LocationComponent,
   ],
   imports: [
     BrowserModule,

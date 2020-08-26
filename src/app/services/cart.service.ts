@@ -22,9 +22,21 @@ export class CartService {
     this.cart.exemplaires = [];
     if (this.getCart() !== null) {
       this.cart.exemplaires = this.getCart();
+      if (this.cart.exemplaires.find(reserved => reserved.idExemplaire === exemplaire.idExemplaire)) {
+        alert('Vous avez déjà ce livre dans le panier !');
+      }
+      else {
+        this.cart.exemplaires.push(exemplaire);
+        localStorage.setItem(USER_CART, JSON.stringify(this.cart.exemplaires));
+        alert('Item ajouté au panier !');
+      }
     }
-    this.cart.exemplaires.push(exemplaire);
-    localStorage.setItem(USER_CART, JSON.stringify(this.cart.exemplaires));
+    else {
+      this.cart.exemplaires.push(exemplaire);
+      localStorage.setItem(USER_CART, JSON.stringify(this.cart.exemplaires));
+      alert('Item ajouté au panier !');
+    }
+
 
   }
   public getCart(): Exemplaire[] {
