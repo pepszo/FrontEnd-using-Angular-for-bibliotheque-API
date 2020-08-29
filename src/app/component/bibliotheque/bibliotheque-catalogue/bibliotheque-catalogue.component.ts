@@ -44,12 +44,11 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
       data => {
       this.bibliotheque = data[0];
       this.editions = data[1];
+      this.editions.forEach(edition => edition.countOfExempByEdition = 0);
       console.log(this.editions);
-      this.$countOfExempl = data[2];
-      this.editions.forEach(n => {
-        n.countOfExempByEdition = this.$countOfExempl[this.i];
-        this.i++;
-      });
+      console.log(data[2]);
+      data[2].forEach(arr => this.editions.find(edition => edition.idEdition === arr[0]).countOfExempByEdition = arr[1]);
+
 
       /*this.bibliotheque.exemp.forEach(exemp => {
         if (exemp.edition){
@@ -91,13 +90,17 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
   onClick(edition): void {
     if (this.showLecteurBoard){
       if (this.reservePermission) {
-        this.bibliothequeService.getOneExemplaireByEdition(edition.idEdition).subscribe(
-          data => {
-            console.log(data);
-            data.bibliotheque = this.bibliotheque;
-            this.cartService.addToCart(data);
-          }
-        );
+        if (edition.countOfExempByEdition !== 0){
+          this.bibliothequeService.getOneExemplaireByEdition(edition.idEdition).subscribe(
+            data => {
+              console.log(data);
+              data.bibliotheque = this.bibliotheque;
+              this.cartService.addToCart(data);
+            }
+          );
+        }else{
+          alert('Pas disponible pour le moment !');
+        }
       }
       else {
         alert('Vous n avez pas payé la cotisation pour cette bibliotheque');

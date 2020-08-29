@@ -1,4 +1,4 @@
-<h2>Bibliotheques</h2>
+<h1>Bibliotheques</h1>
 
   <table class="table table-striped">
     <thead>
@@ -11,8 +11,8 @@
     </thead>
     <tbody>
     <tr *ngFor="let bibliotheque of bibliotheques" >
-      <td style="cursor: pointer;" (click)="onClick(bibliotheque.idBibliotheque)">{{ bibliotheque.idBibliotheque }}</td>
-      <td style="cursor: pointer;" (click)="onClick(bibliotheque.idBibliotheque)">{{ bibliotheque.adresse }}</td>
+      <a ><td (click)="onClick(bibliotheque.idBibliotheque)">{{ bibliotheque.idBibliotheque }}</td></a>
+      <td style="cursor: pointer;" (click)="!!onClick(bibliotheque.idBibliotheque)">{{ bibliotheque.adresse }}</td>
       <td style="cursor: pointer;" (click)="onClick(bibliotheque.idBibliotheque)">{{ bibliotheque.tel }}</td>
       <ng-container *ngIf="showLecteurBoard">
         <ng-container *ngIf="cotisations; else elseBlock">

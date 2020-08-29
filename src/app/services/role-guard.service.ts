@@ -14,8 +14,11 @@ export class RoleGuardService implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     const expectedRole = route.data.expectedRole;
     if (this.tokenStorage.getUser()) {
-      if (this.tokenStorage.getRole().includes(expectedRole[0]) || this.tokenStorage.getRole().includes(expectedRole[1])) {
+      if (expectedRole.indexOf(this.tokenStorage.getRole()) > -1) {
         return true;
+      }
+      else {
+        this.router.navigate(['not-found']);
       }
     } else {
       this.router.navigate(['not-found']);

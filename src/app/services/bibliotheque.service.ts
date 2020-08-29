@@ -7,13 +7,15 @@ import {Edition} from '../models/Edition';
 import {Etat} from '../models/Etat';
 import {Exemplaire} from '../models/Exemplaire';
 import {Cotisation} from '../models/Cotisation';
+import {TokenStorageService} from './token-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BibliothequeService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private tokenStorageService: TokenStorageService) { }
 
   getAllBibliotheque(): Observable<Bibliotheque[]> {
     return this.httpClient.get <Bibliotheque[]>(API_URL + 'bibliotheque/all');
@@ -61,5 +63,11 @@ export class BibliothequeService {
     const params = new HttpParams()
       .set('idEdition', idEdition.toString());
     return this.httpClient.get<Exemplaire>(API_URL + 'bibliotheque/exemplaire', {params});
+  }
+
+  newLocations(idExemplaires: number[]): Observable<Exemplaire[]> {
+    // tslint:disable-next-line:max-line-length
+    console.log(idExemplaires);
+    return this.httpClient.post<Exemplaire[]>(API_URL + 'location/new?email=' + this.tokenStorageService.getUser(), idExemplaires, httpOptions );
   }
 }

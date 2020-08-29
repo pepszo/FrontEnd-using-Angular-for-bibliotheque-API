@@ -30,9 +30,9 @@ import { LocationComponent } from './component/location/location.component';
 
 const appRoutes: Routes = [
   // tslint:disable-next-line:max-line-length
-  { path: 'reservation', canActivate: [RoleGuardService], component: LocationComponent, data : { expectedRole: ['LECTEUR'] } },
-  { path: 'bibliotheques/:id/add-book', canActivate: [RoleGuardService], component: BibliothequeCatalogueAddBookComponent, data : { expectedRole: ['MANAGER', 'GENERAL']  } },
-  { path: 'bibliotheques/new', canActivate: [RoleGuardService], component: BibliothequeNewComponent, data : { expectedRole: 'GENERAL'}},
+  { path: 'reservation', canActivate: [RoleGuardService], component: LocationComponent, data : { expectedRole: ['ROLE_LECTEUR'] } },
+  { path: 'bibliotheques/:id/add-book', canActivate: [RoleGuardService], component: BibliothequeCatalogueAddBookComponent, data : { expectedRole: ['ROLE_BIBLIOTHECAIRE_MANAGER', 'ROLE_BIBLIOTHECAIRE_MANAGER_GENERAL']  } },
+  { path: 'bibliotheques/new', canActivate: [RoleGuardService], component: BibliothequeNewComponent, data : { expectedRole: ['ROLE_BIBLIOTHECAIRE_MANAGER_GENERAL']}},
   { path: 'bibliotheques', component: BibliothequeListComponent},
   { path: 'bibliotheques/:id', component: BibliothequeCatalogueComponent},
   { path: 'login', component: LoginComponent },

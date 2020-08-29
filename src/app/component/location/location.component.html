@@ -1,13 +1,33 @@
-<table>
-  <tr>
-    <th>
-
-    </th>
-  </tr>
-
-  <tr>
-    <td>
-
-    </td>
-  </tr>
+<h1>Reservations</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Bibliotheque</th>
+      <th scope="col">Titre</th>
+      <th scope="col">Edition</th>
+      <th scope="col">Etat du livre</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let exemplaire of cart; let i = index">
+      <td>{{i + 1}}</td>
+      <td>{{exemplaire.bibliotheque.adresse}}</td>
+      <td>{{exemplaire.edition.oeuvre.titre}}</td>
+      <td>{{exemplaire.edition.nomEditeur}}</td>
+      <td>{{exemplaire.etat.label}}</td>
+      <td><img src="assets/img/delete_icon.svg" style="cursor: pointer; width: 25px" (click)="onRemove(exemplaire)"></td>
+    </tr>
+  </tbody>
 </table>
+<div style=" position: relative; left: 90%; justify-content: center">
+      <a style="color: inherit"><button type="button" class="btn btn-info" (click)="onReserver()">Reserver</button></a>
+</div>
+
+
+
+
+
+
+
