@@ -1,5 +1,5 @@
 # Credentials
-| Utilisateur  | Username | Password |
+| Role  | Username | Password |
 | ------------- | ------------- | ------------- |
 | Lecteur  | le@hotmail.com | aze |
 | Manager General  | mg@hotmail.com | aze |
