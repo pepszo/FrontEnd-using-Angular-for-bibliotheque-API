@@ -59,9 +59,11 @@ export class BibliothequeService {
     return this.httpClient.post<Cotisation> (API_URL + 'bibliotheque/cotisation/new?emailLecteur=' + emailLecteur + '&idBibliotheque=' + idBibliotheque, httpOptions);
   }
 
-  getOneExemplaireByEdition(idEdition: number): Observable<Exemplaire> {
+  getOneExemplaireByEdition(idBibliotheque: number, idEdition: number): Observable<Exemplaire> {
     const params = new HttpParams()
+      .set('idBibliotheque', idBibliotheque.toString())
       .set('idEdition', idEdition.toString());
+    console.log(idBibliotheque, idEdition);
     return this.httpClient.get<Exemplaire>(API_URL + 'bibliotheque/exemplaire', {params});
   }
 

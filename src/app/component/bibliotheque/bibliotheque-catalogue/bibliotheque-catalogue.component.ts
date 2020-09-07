@@ -43,6 +43,7 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
               this.bibliothequeService.getCountOfExemplaire(this.bibliotheque.idBibliotheque)]).subscribe(
       data => {
       this.bibliotheque = data[0];
+      console.log(this.bibliotheque);
       this.editions = data[1];
       this.editions.forEach(edition => edition.countOfExempByEdition = 0);
       console.log(this.editions);
@@ -91,7 +92,7 @@ export class BibliothequeCatalogueComponent implements OnInit, OnDestroy {
     if (this.showLecteurBoard){
       if (this.reservePermission) {
         if (edition.countOfExempByEdition !== 0){
-          this.bibliothequeService.getOneExemplaireByEdition(edition.idEdition).subscribe(
+          this.bibliothequeService.getOneExemplaireByEdition(this.bibliotheque.idBibliotheque, edition.idEdition).subscribe(
             data => {
               console.log(data);
               data.bibliotheque = this.bibliotheque;
