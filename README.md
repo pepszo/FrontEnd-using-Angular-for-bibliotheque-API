@@ -1,3 +1,31 @@
+## Credentials
+| Utilisateur  | Username | Password |
+| ------------- | ------------- | ------------- |
+| Lecteur  | le@hotmail.com | aze |
+| Manager General  | mg@hotmail.com | aze |
+| Manager  | ma@hotmail.com | aze |
+| Bibliothecaire  | bi@hotmail.com | aze |
+
+
+#Explication du site
+
+- Un utilisateur non connecté peu regarder les catalogues des bibliotheques mais ne peu pas reserver
+
+- Sur la page de la liste des bilbiotheques: - tout le monde peu cliquer sur les champs pour voir les catalogues 
+                                           : - un lecteur peu payer une cotisation à une bibliotheque en appuyant sur : "Non payé"
+                                           : - un manageur general peu ajouter une nouvelle bibliotheque
+                                           
+- Sur la page de la liste des livres: - tout le monde peu cliquer sur les champs pour voir les details 
+                                    : - un lecteur peu ajouter un livre dans son panier en cliquant sur un champ
+                                    : - un manageur general et un manager peuvent ajouter un nouveau livre
+
+- Sur le modal du panier: - le lecteur pourra se diriger vers la page reservation pour reserver les livres 
+
+                                    
+                                    
+                                    
+                                    
+
 # AngularProjects
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
